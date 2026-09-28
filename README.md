@@ -164,27 +164,7 @@ npm run build
 
 ---
 
-## 📸 6. 핵심 모듈 스크린샷 갤러리
-
-| 01. AI 회고 아카이브 (KPT) | 02. 유기동물 입양 카드뉴스 제너레이터 |
-| :---: | :---: |
-| ![회고 아카이브](images/screenshot_module_retro.png) | ![입양 카드](images/screenshot_module_adopt.png) |
-
-| 03. 소셜 감성 트렌드 레이더 | 04. 링크인바이오 프로필 빌더 |
-| :---: | :---: |
-| ![감성 트렌드](images/screenshot_module_radar.png) | ![링크인바이오](images/screenshot_module_bio.png) |
-
-| 05. 16:9 스토리보드 캔버스 | 06. AI 음악 프롬프트 랩 |
-| :---: | :---: |
-| ![스토리보드](images/screenshot_module_story.png) | ![음악 랩](images/screenshot_module_music.png) |
-
-| 07. 아이디어 스파크 핀보드 | 08. 초집중 스프린트 & 액션 다이스 |
-| :---: | :---: |
-| ![아이디어 아카이브](images/screenshot_module_idea.png) | ![초집중 스프린트](images/screenshot_module_focus.png) |
-
----
-
-## 📑 7. 평가 기준 심층 분석 대응
+## 📑 6. 평가 기준 심층 분석 대응
 
 * **단일 책임 기반 모듈화**: 회고, 에셋 생성, 시계열 분석, 링크 관리, 타이머 등 상이한 비즈니스 로직을 독립된 상태 머신으로 격리하여 결합도를 낮추고 유지보수성을 극대화.
 * **운영 비용 제로화 (Zero Server Cost)**: 별도의 백엔드 데이터베이스 서버 없이 브라우저 LocalStorage와 클라이언트 캔버스 엔진을 결합하여 무제한 영구 사용이 가능한 초경량 아키텍처 실현.
