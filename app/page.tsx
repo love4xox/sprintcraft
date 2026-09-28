@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import FocusActionSprint from '@/components/FocusActionSprint';
 
 interface ReviewItem {
   id: string;
@@ -48,7 +49,7 @@ interface IdeaItem {
 }
 
 export default function OnePageHub() {
-  const [activeTab, setActiveTab] = useState<'retro' | 'adopt' | 'radar' | 'bio' | 'story' | 'music' | 'idea'>('retro');
+  const [activeTab, setActiveTab] = useState<'retro' | 'adopt' | 'radar' | 'bio' | 'story' | 'music' | 'idea' | 'focus'>('retro');
   const [isMounted, setIsMounted] = useState(false);
 
   // --- 1. 회고 아카이브 ---
@@ -212,7 +213,6 @@ export default function OnePageHub() {
       const savedIdeas = localStorage.getItem('sc_ideas');
       if (savedIdeas) {
         const parsed = JSON.parse(savedIdeas);
-        // 기존 단순 구조 호환 처리
         const migrated: IdeaItem[] = parsed.map((item: any, idx: number) => ({
           id: item.id?.toString() || `${Date.now()}-${idx}`,
           category: item.category || '프로덕트',
@@ -586,6 +586,7 @@ ${tagList} #사지말고입양하세요 #유기견입양 #유기묘입양 #평�
     { id: 'story', label: '5. 스토리보드' },
     { id: 'music', label: '6. 음악 랩' },
     { id: 'idea', label: '7. 아이디어 아카이브' },
+    { id: 'focus', label: '8. 초집중 스프린트 & 액션 다이스' },
   ] as const;
 
   return (
@@ -1782,6 +1783,9 @@ ${tagList} #사지말고입양하세요 #유기견입양 #유기묘입양 #평�
             </div>
           </section>
         )}
+
+        {/* 8. 초집중 스프린트 & 액션 다이스 */}
+        {activeTab === 'focus' && <FocusActionSprint />}
 
       </div>
     </main>
