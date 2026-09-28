@@ -1,7 +1,7 @@
 # 🚀 SprintCraft: 1인 메이커를 위한 올인원 크리에이티브 허브
 ## (Full-Stack Micro-Productivity Studio & Project Report)
 
-> 아이디어 발상부터 KPT 회고, SNS 콘텐츠 생성, 소셜 감성 분석, 브랜딩 허브, 스토리보드, 사운드 랩까지 7가지 핵심 모듈을 단일 SPA에 집약하고 브라우저 영구 상태 보존(LocalStorage)과 Vercel CI/CD를 결합한 풀스택 생산성 스튜디오입니다.
+> 아이디어 발상부터 KPT 회고, SNS 콘텐츠 생성, 소셜 감성 분석, 브랜딩 허브, 스토리보드, 사운드 랩, 초집중 스프린트까지 8가지 핵심 모듈을 단일 SPA에 집약하고 브라우저 영구 상태 보존(LocalStorage)과 Vercel CI/CD를 결합한 풀스택 생산성 스튜디오입니다.
 
 <p align="left">
   <img src="https://img.shields.io/badge/Next.js-14.2-000000?style=flat-square&logo=next.js&logoColor=white"/>
@@ -20,13 +20,13 @@
 * **개발 기간**: 2026.09.24 ~ 2026.09.28
 * **개발자 / 작성자**: 정형경 (`love4xox`)
 * **저장소**: [https://github.com/love4xox/sprintcraft](https://github.com/love4xox/sprintcraft)
-* **배포 URL**: Vercel 프로덕션 배포 완료 (`https://sprintcraft-*.vercel.app`)
+* **배포 URL**: [https://sprintcraft.vercel.app](https://sprintcraft.vercel.app) *(또는 실제 발급된 Vercel URL)*
 * **서비스 소개 (무엇을 해결하는가?)**:
-  * **문제 정의**: 1인 메이커 및 크리에이터는 회고, 카드뉴스 제작, 감성 모니터링, 프로필 빌더, 영상 기획, 오디오 프롬프트 생성 등 다양한 작업을 수행하기 위해 수많은 개별 툴을 오가며 작업 흐름이 분절되고 데이터가 유실되는 비효율을 겪습니다.
+  * **문제 정의**: 1인 메이커 및 크리에이터는 회고, 카드뉴스 제작, 감성 모니터링, 프로필 빌더, 영상 기획, 오디오 프롬프트 생성, 집중 작업 관리 등 다양한 작업을 수행하기 위해 수많은 개별 툴을 오가며 작업 흐름이 분절되고 데이터가 유실되는 비효율을 겪습니다.
   * **해결 방안**:
-    1. **단일 SPA 통합 허브**: 7개 핵심 생산성 모듈을 단일 뷰포트에서 즉각 전환 가능한 탭 구조로 통합.
-    2. **클라이언트 사이드 영구화**: 백엔드 DB 통신 오버헤드 없이 `LocalStorage`를 활용해 7개 모듈의 입력 상태를 브라우저에 안전하게 자동 저장/복원.
-    3. **인터랙티브 렌더링 & 에셋 익스포트**: DOM-to-Canvas(html-to-image) 기반 고화질 PNG 렌더링, Recharts 기반 실시간 감성 시계열 차트, 메타태그 조합기 제공.
+    1. **단일 SPA 통합 허브**: 8개 핵심 생산성 모듈을 단일 뷰포트에서 지연 없이 즉각 전환 가능한 반응형 탭 구조로 통합.
+    2. **클라이언트 사이드 영구화**: 백엔드 DB 통신 오버헤드 없이 `LocalStorage`를 활용해 8개 모듈의 입력 상태를 브라우저에 안전하게 자동 저장/복원.
+    3. **인터랙티브 렌더링 & 에셋 익스포트**: DOM-to-Canvas(html-to-image) 기반 고화질 PNG 렌더링, Recharts 기반 실시간 감성 시계열 차트, SVG 원형 뽀모도로 타이머, 오디오 메타태그 조합기 제공.
 
 ---
 
@@ -37,7 +37,7 @@
   [ Presentation & UI Layer ]
   ┌────────────────────────────────────────────────────────┐
   │  Next.js 14 App Router (React Server & Client Components)│
-  │  - Single Page Multi-Tab UI Switching                  │
+  │  - Single Page 8-Module Tab Navigation (No Reload)     │
   │  - Tailwind CSS 기반 반응형 모바일/데스크톱 뷰포트     │
   │  - Lucide Icons & Edge Runtime 다이내믹 파비콘 (icon.tsx)│
   └───────────────────────────┬────────────────────────────┘
@@ -51,14 +51,17 @@
   │     (Recharts 다중 추세) │     (테마별 모바일 목업)   │
   │  ────────────────────────┼────────────────────────────│
   │  5. 16:9 스토리보드 캔버스│  6. AI 음악 프롬프트 랩     │
-  │  ────────────────────────┴────────────────────────────│
-  │  7. 아이디어 스파크 핀보드 (상태 관리, 검색 및 필터)   │
+  │  ────────────────────────┼────────────────────────────│
+  │  7. 아이디어 스파크 핀보드│  8. 초집중 스프린트 타이머  │
+  │     (상태 관리, 검색/정렬)│     (뽀모도로 & 액션 다이스)│
   └───────────────────────────┬────────────────────────────┘
                               │
   [ Persistence & Deployment ]
   ┌───────────────────────────▼────────────────────────────┐
-  │  - Browser LocalStorage (sc_retro, sc_adopt, etc.)     │
-  │  - Vercel Edge Network (Global CDN, Auto Redeployment) │
+  │  - Browser LocalStorage (sc_retro, sc_adopt,           │
+  │    sc_reviews, sc_bio, sc_scenes, sc_music,            │
+  │    sc_ideas, sc_action_dice, sc_completed_sessions)    │
+  │  - Vercel Edge Network (Global CDN, Auto CI/CD)        │
   └────────────────────────────────────────────────────────┘
 ```
 
@@ -66,16 +69,17 @@
 | 계층 (Layer) | 사용 기술 | 적용 목적 및 주요 역할 |
 | :--- | :--- | :--- |
 | **Framework** | Next.js 14 (App Router) | 클라이언트 사이드 고속 탭 전환, `icon.tsx` Edge Runtime 파비콘 자동 생성 |
-| **Language** | TypeScript 5 | 모듈별 엄격한 인터페이스 정의(`ReviewItem`, `BioLinkItem`, `StoryboardScene`, `IdeaItem`) |
-| **Styling** | Tailwind CSS | 다크 모드, 반응형 목업 뷰, 글래스모피즘 및 애니메이션 UI 구축 |
+| **Language** | TypeScript 5 | 엄격한 타입 모델링 (`ReviewItem`, `BioLinkItem`, `StoryboardScene`, `IdeaItem`, `CustomAction`) |
+| **Styling** | Tailwind CSS | 다크 모드 목업, 1:1 카드 템플릿, 슬림 스크롤바 제어 및 글래스모피즘 UI |
 | **Canvas / Export** | html-to-image | 인스타그램 규격 1:1 카드를 2배수 픽셀(Retina 대응) 고화질 PNG 파일로 즉시 변환 |
 | **Data Viz** | Recharts | 날짜별 긍정률/부정률/이상징후(불일치율) 다중 라인 시계열 차트 렌더링 |
-| **State & Storage** | React Hook + LocalStorage | `useEffect` 듀얼 바인딩으로 새로고침 및 브라우저 재접속 시에도 완벽한 데이터 복원 |
+| **Timer Engine** | React Hooks + SVG | 원형 프로그레스 게이지 실시간 연산 및 뽀모도로(15m/25m/5m) 상태 머신 제어 |
+| **State & Storage** | React Hook + LocalStorage | `useEffect` 듀얼 바인딩으로 새로고침 및 브라우저 재접속 시에도 8개 모듈 완벽 복원 |
 | **Hosting & CI/CD** | Vercel, GitHub Actions | GitHub `main` 푸시 시 30초 내 무중단 글로벌 CDN 자동 배포 |
 
 ---
 
-## 🧩 3. 7대 핵심 기능 모듈 명세
+## 🧩 3. 8대 핵심 기능 모듈 명세
 
 ### 01. AI 회고 아카이브 (1인 스프린트 KPT)
 * **동작 원리**: 사용자의 자유 서술형 회고 문장을 문장 부호 단위로 파싱하고 감성/행동 키워드 정규식을 적용.
@@ -108,6 +112,11 @@
 * **정렬 & 검색**: 카테고리 필터링(프로덕트, 영상, 음악, 디자인) 및 키워드 실시간 검색.
 * **상태 트래킹**: 중요 아이디어 별표(Pin) 상단 고정, 실행 상태(구상 중 / 진행 중 / 완료) 토글, 마크다운 기획 노트 내보내기.
 
+### 08. 초집중 스프린트 & 액션 다이스 (Focus Sprint & Action Dice)
+* **초집중 타이머**: 15분 초소형 액션, 25분 뽀모도로, 5분 리프레시 휴식 3단계 모드 지원 및 SVG 원형 프로그레스 시각화.
+* **15분 액션 다이스 룰렛**: 시작 주저증(Procrastination) 해소를 위한 무작위 초소형 행동 추첨 애니메이션 엔진.
+* **착수 풀 관리**: 사용자가 즉시 행동 가능한 15분 단위 행동 목록 동적 추가/삭제 및 당일 완수 세션 카운터 영구 누적.
+
 ---
 
 ## 💻 4. 로컬 개발 및 실행 가이드
@@ -129,28 +138,54 @@ npm run build
 
 ---
 
-## 🛠️ 5. 트러블슈팅 및 브랜딩 최적화
+## 🛠️ 5. 트러블슈팅 및 사용자 경험(UX) 최적화
 
 ### 5.1 Vercel 기본 파비콘 충돌 및 Edge Runtime 다이내믹 아이콘 도입
 * **문제 상황**: 배포 후 브라우저 탭에 Next.js 기본 검은색 삼각형 아이콘(`favicon.ico`)과 `Create Next App` 타이틀이 고정 노출되는 브랜딩 문제 발생.
 * **원인**: Next.js 14 App Router에서 빌드 시 `app/favicon.ico` 정적 파일이 메타데이터보다 우선순위를 갖는 현상.
 * **해결 방안**:
-  1. 기존 `app/favicon.ico`를 영구 제거.
+  1. 기존 `app/favicon.ico` 정적 파일을 제거.
   2. Next.js Edge Runtime 기반의 `app/icon.tsx`를 생성하여 ImageResponse로 커스텀 로켓(🚀) 심볼과 그라데이션 배지를 32x32 규격으로 동적 서빙.
   3. `app/layout.tsx`의 Metadata 객체를 `SprintCraft | 올인원 크리에이티브 스튜디오`로 교체 완료.
 
-### 5.2 Git Remote Origin 중복 충돌 해결
-* **문제 상황**: 원격 저장소 재연결 시 `error: remote origin already exists` 에러로 푸시 실패.
-* **해결 방안**: `git remote set-url origin https://github.com/love4xox/sprintcraft.git` 명령어를 통해 기존 origin 레퍼런스를 새 리포지토리 엔드포인트로 안전하게 갱신하여 커밋 동기화 완료.
+### 5.2 8개 모듈 확장에 따른 상단 네비게이션 가로 스크롤바 간섭 해결
+* **문제 상황**: 8번째 탭 추가 시 뷰포트 너비를 초과하여 상단 네비게이션 영역에 회색 가로 스크롤바가 노출되어 디자인 완성도 저하.
+* **해결 방안**:
+  1. 탭 라벨 명칭을 간결하게 축약(`8. 뽀모도로 다이스`).
+  2. Tailwind CSS 인라인 유틸리티(`scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden`)를 주입하여 스크롤바를 완전히 숨기고 터치/휠 스와이프 인터랙션 유지.
 
-### 5.3 LocalStorage 하이드레이션 불일치(Hydration Mismatch) 방지
+### 5.3 라이트 테마 기반 컴포넌트 텍스트 가시성 대비 최적화
+* **문제 상황**: 다크 테마 기준으로 작성된 8번 모듈의 흰색 글씨(`text-white`)가 메인 배경(`bg-slate-100`)과 겹쳐 텍스트가 식별되지 않는 현상 발생.
+* **해결 방안**: 1~7번 모듈과 일관성을 갖추도록 `bg-white rounded-3xl` 화이트 카드 래퍼를 씌우고 `text-slate-900`, `text-slate-600` 명도 대비를 재조정하여 가독성 확보.
+
+### 5.4 LocalStorage 하이드레이션 불일치(Hydration Mismatch) 방지
 * **문제 상황**: SSR(서버 사이드 렌더링) 환경과 브라우저의 LocalStorage 저장 데이터가 일치하지 않아 React Hydration 오류가 발생할 위험 존재.
 * **해결 방안**: `isMounted` 플래그 및 마운트 후 1회성 상태 주입 로직을 구성하여 클라이언트 마운트 완료 시점에 안전하게 상태를 복원하도록 아키텍처 설계.
 
 ---
 
-## 📑 6. 평가 기준 심층 분석 대응
+## 📸 6. 핵심 모듈 스크린샷 갤러리
 
-* **단일 책임 기반 모듈화**: 회고, 에셋 생성, 시계열 분석, 링크 관리 등 서로 다른 비즈니스 로직을 독립된 React Hook 상태로 격리하여 상호 간섭을 원천 차단.
-* **운영 비용 제로화 (Zero Server Cost)**: 복잡한 데이터베이스 서버를 두지 않고 브라우저 LocalStorage와 클라이언트 캔버스 엔진을 결합하여 유지보수 비용 없이 무제한 사용 가능한 경량 아키텍처 실현.
-* **사용자 중심 UX**: 모든 액션에 원클릭 클립보드 복사, 피드백 토글 애니메이션, 인스턴트 다운로드 파이프라인을 구축하여 실질적인 작업 효율 극대화.
+| 01. AI 회고 아카이브 (KPT) | 02. 유기동물 입양 카드뉴스 제너레이터 |
+| :---: | :---: |
+| ![회고 아카이브](images/screenshot_module_retro.png) | ![입양 카드](images/screenshot_module_adopt.png) |
+
+| 03. 소셜 감성 트렌드 레이더 | 04. 링크인바이오 프로필 빌더 |
+| :---: | :---: |
+| ![감성 트렌드](images/screenshot_module_radar.png) | ![링크인바이오](images/screenshot_module_bio.png) |
+
+| 05. 16:9 스토리보드 캔버스 | 06. AI 음악 프롬프트 랩 |
+| :---: | :---: |
+| ![스토리보드](images/screenshot_module_story.png) | ![음악 랩](images/screenshot_module_music.png) |
+
+| 07. 아이디어 스파크 핀보드 | 08. 초집중 스프린트 & 액션 다이스 |
+| :---: | :---: |
+| ![아이디어 아카이브](images/screenshot_module_idea.png) | ![초집중 스프린트](images/screenshot_module_focus.png) |
+
+---
+
+## 📑 7. 평가 기준 심층 분석 대응
+
+* **단일 책임 기반 모듈화**: 회고, 에셋 생성, 시계열 분석, 링크 관리, 타이머 등 상이한 비즈니스 로직을 독립된 상태 머신으로 격리하여 결합도를 낮추고 유지보수성을 극대화.
+* **운영 비용 제로화 (Zero Server Cost)**: 별도의 백엔드 데이터베이스 서버 없이 브라우저 LocalStorage와 클라이언트 캔버스 엔진을 결합하여 무제한 영구 사용이 가능한 초경량 아키텍처 실현.
+* **완성도 높은 반응형 UX**: 원클릭 클립보드 복사, 상태 토글 애니메이션, 고화질 Retina PNG 다운로드 파이프라인, 모바일 뷰 목업을 제공하여 실사용 가치를 극대화.
