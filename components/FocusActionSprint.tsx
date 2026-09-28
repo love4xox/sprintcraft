@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, RotateCcw, Dices, Plus, Trash2, CheckCircle2, Flame } from 'lucide-react';
+import { Play, Pause, RotateCcw, Dices, Plus, Trash2, CheckCircle2, Flame, Sparkles } from 'lucide-react';
 
 interface CustomAction {
   id: string;
@@ -18,19 +18,16 @@ const DEFAULT_ACTIONS = [
 ];
 
 export default function FocusActionSprint() {
-  // 타이머 상태 (기본 15분 초집중 = 900초, 25분 뽀모도로 = 1500초)
   const [targetMinutes, setTargetMinutes] = useState<number>(15);
   const [timeLeft, setTimeLeft] = useState<number>(15 * 60);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [completedSessions, setCompletedSessions] = useState<number>(0);
 
-  // 액션 다이스 상태
   const [actions, setActions] = useState<CustomAction[]>([]);
   const [newActionInput, setNewActionInput] = useState<string>('');
   const [pickedAction, setPickedAction] = useState<string>('주저할 시간도 아깝습니다. 주사위를 굴려 즉시 착수하세요!');
   const [isRolling, setIsRolling] = useState<boolean>(false);
 
-  // LocalStorage 데이터 복원
   useEffect(() => {
     const savedActions = localStorage.getItem('sc_action_dice');
     if (savedActions) {
@@ -49,7 +46,6 @@ export default function FocusActionSprint() {
     }
   }, []);
 
-  // 타이머 인터벌
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isRunning && timeLeft > 0) {
@@ -66,27 +62,23 @@ export default function FocusActionSprint() {
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, completedSessions]);
 
-  // 시간 포맷 (MM:SS)
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
   };
 
-  // 모드 전환
   const switchMode = (mins: number) => {
     setIsRunning(false);
     setTargetMinutes(mins);
     setTimeLeft(mins * 60);
   };
 
-  // 리셋
   const resetTimer = () => {
     setIsRunning(false);
     setTimeLeft(targetMinutes * 60);
   };
 
-  // 주사위 굴리기 (랜덤 액션 도출)
   const rollDice = () => {
     if (actions.length === 0) return;
     setIsRolling(true);
@@ -102,7 +94,6 @@ export default function FocusActionSprint() {
     }, 80);
   };
 
-  // 새 액션 추가
   const addAction = () => {
     if (!newActionInput.trim()) return;
     const updated = [...actions, { id: Date.now().toString(), text: newActionInput.trim() }];
@@ -111,7 +102,6 @@ export default function FocusActionSprint() {
     setNewActionInput('');
   };
 
-  // 액션 삭제
   const removeAction = (id: string) => {
     const updated = actions.filter((a) => a.id !== id);
     setActions(updated);
@@ -121,57 +111,63 @@ export default function FocusActionSprint() {
   const progressPercent = ((targetMinutes * 60 - timeLeft) / (targetMinutes * 60)) * 100;
 
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
       {/* 상단 헤더 */}
-      <div className="border-b border-slate-700/60 pb-5">
-        <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-          <span>🎯</span> 초집중 15분 스프린트 & 액션 다이스
-        </h2>
-        <p className="text-sm text-slate-400 mt-1">
-          고민은 멈추고 주사위를 굴리세요. 15분만 타이머에 맞춰 손을 움직이면 실행 격차가 사라집니다.
-        </p>
+      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+            <Flame className="w-5 h-5" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-slate-900">08. 초집중 스프린트 & 액션 다이스</h2>
+            <p className="text-xs text-slate-500">15분 타이머로 실행 격차를 줄이고 무작위 초소형 액션 뽑기</p>
+          </div>
+        </div>
+        <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">
+          Focus Sprint
+        </span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         {/* 좌측: 타이머 섹션 */}
-        <div className="lg:col-span-7 bg-slate-800/50 border border-slate-700/70 rounded-2xl p-6 flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-sm">
+        <div className="md:col-span-7 bg-slate-50 border border-slate-200/80 rounded-2xl p-6 flex flex-col items-center justify-center">
           {/* 타이머 시간 모드 선택 */}
-          <div className="flex gap-2 p-1.5 bg-slate-900/60 rounded-xl mb-6">
+          <div className="flex gap-1.5 p-1 bg-white border border-slate-200 rounded-xl mb-6">
             <button
               onClick={() => switchMode(15)}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${
-                targetMinutes === 15 ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                targetMinutes === 15 ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              ⚡ 15분 초소형 액션
+              ⚡ 15분 액션
             </button>
             <button
               onClick={() => switchMode(25)}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${
-                targetMinutes === 25 ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                targetMinutes === 25 ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               🍅 25분 뽀모도로
             </button>
             <button
               onClick={() => switchMode(5)}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${
-                targetMinutes === 5 ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                targetMinutes === 5 ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              ☕ 5분 리프레시 휴식
+              ☕ 5분 휴식
             </button>
           </div>
 
-          {/* 중앙 시계 텍스트 & 프로그레스 */}
-          <div className="relative w-64 h-64 flex flex-col items-center justify-center my-2">
+          {/* 원형 시계 */}
+          <div className="relative w-56 h-56 flex flex-col items-center justify-center my-1">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="44" stroke="#1e293b" strokeWidth="6" fill="transparent" />
+              <circle cx="50" cy="50" r="44" stroke="#e2e8f0" strokeWidth="6" fill="transparent" />
               <circle
                 cx="50"
                 cy="50"
                 r="44"
-                stroke="#6366f1"
+                stroke="#4f46e5"
                 strokeWidth="6"
                 fill="transparent"
                 strokeDasharray="276.46"
@@ -181,107 +177,106 @@ export default function FocusActionSprint() {
               />
             </svg>
             <div className="absolute flex flex-col items-center">
-              <span className="text-5xl font-mono font-black text-white tracking-wider">
+              <span className="text-4xl font-mono font-black text-slate-900 tracking-wider">
                 {formatTime(timeLeft)}
               </span>
-              <span className="text-xs text-indigo-400 mt-2 font-medium">
-                {isRunning ? '🔥 집중 실행 모드 가동 중' : '대기 중'}
+              <span className="text-[11px] text-indigo-600 mt-1 font-bold">
+                {isRunning ? '🔥 집중 실행 중' : '대기 중'}
               </span>
             </div>
           </div>
 
           {/* 컨트롤 버튼 */}
-          <div className="flex gap-4 mt-6">
+          <div className="flex gap-3 mt-5">
             <button
               onClick={() => setIsRunning(!isRunning)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition active:scale-95 ${
+              className={`flex items-center gap-1.5 px-6 py-2.5 rounded-xl font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer ${
                 isRunning
-                  ? 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-900/40'
-                  : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-900/40'
+                  ? 'bg-amber-500 hover:bg-amber-600 text-white'
+                  : 'bg-indigo-600 hover:bg-indigo-700 text-white'
               }`}
             >
-              {isRunning ? <Pause size={18} /> : <Play size={18} />}
-              {isRunning ? '잠시 멈춤' : '스프린트 시작'}
+              {isRunning ? <Pause size={15} /> : <Play size={15} />}
+              {isRunning ? '일시정지' : '스프린트 시작'}
             </button>
             <button
               onClick={resetTimer}
-              className="flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm bg-slate-700/60 hover:bg-slate-700 text-slate-300 transition"
+              className="flex items-center gap-1 px-3.5 py-2.5 rounded-xl font-semibold text-xs bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 transition cursor-pointer"
               title="초기화"
             >
-              <RotateCcw size={18} />
+              <RotateCcw size={15} /> 초기화
             </button>
           </div>
 
-          {/* 완수한 스프린트 횟수 뱃지 */}
-          <div className="mt-8 pt-4 border-t border-slate-700/60 w-full flex items-center justify-between text-xs text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <Flame size={16} className="text-amber-400" /> 오늘 완수한 세션
+          {/* 세션 카운트 */}
+          <div className="mt-6 pt-3 border-t border-slate-200 w-full flex items-center justify-between text-xs text-slate-500">
+            <span className="flex items-center gap-1 font-medium">
+              <Flame size={15} className="text-amber-500" /> 오늘 완수한 세션
             </span>
-            <div className="flex items-center gap-2">
-              <span className="text-base font-bold text-white font-mono">{completedSessions}</span>
-              <span className="text-slate-500">회 완료</span>
+            <div className="flex items-center gap-1 font-bold">
+              <span className="text-base text-slate-900 font-mono">{completedSessions}</span>
+              <span>회 달성</span>
             </div>
           </div>
         </div>
 
         {/* 우측: 15분 액션 다이스 룰렛 */}
-        <div className="lg:col-span-5 space-y-6">
-          {/* 주사위 추첨 카드 */}
-          <div className="bg-gradient-to-br from-indigo-950/40 to-slate-900/60 border border-indigo-500/30 rounded-2xl p-6 relative backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Dices size={16} /> 액션 룰렛
+        <div className="md:col-span-5 space-y-4">
+          <div className="bg-indigo-50/60 border border-indigo-200/70 rounded-2xl p-5 relative">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold text-indigo-900 flex items-center gap-1">
+                <Dices size={15} className="text-indigo-600" /> 액션 룰렛
               </span>
               <button
                 onClick={rollDice}
                 disabled={isRolling}
-                className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 disabled:opacity-50 text-white text-xs font-bold rounded-lg shadow-md transition flex items-center gap-1.5"
+                className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 disabled:opacity-50 text-white text-xs font-bold rounded-lg shadow-xs transition flex items-center gap-1 cursor-pointer"
               >
-                <Dices size={14} className={isRolling ? 'animate-spin' : ''} />
+                <Dices size={13} className={isRolling ? 'animate-spin' : ''} />
                 주사위 굴리기
               </button>
             </div>
 
-            <div className="p-4 bg-slate-900/80 border border-slate-700/50 rounded-xl min-h-[90px] flex items-center justify-center text-center">
-              <p className="text-sm font-semibold text-slate-200 leading-relaxed">
+            <div className="p-4 bg-white border border-indigo-100 rounded-xl min-h-[85px] flex items-center justify-center text-center shadow-xs">
+              <p className="text-xs font-semibold text-slate-800 leading-relaxed">
                 "{pickedAction}"
               </p>
             </div>
           </div>
 
-          {/* 사용자 커스텀 액션 등록 & 관리 */}
-          <div className="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-slate-300 flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-indigo-400" /> 나만의 초소형 착수 액션 풀 ({actions.length})
+          {/* 커스텀 액션 등록 & 관리 */}
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+            <h3 className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <CheckCircle2 size={15} className="text-indigo-600" /> 나만의 초소형 착수 풀 ({actions.length})
             </h3>
 
-            <div className="flex gap-2">
+            <div className="flex gap-1.5">
               <input
                 type="text"
                 value={newActionInput}
                 onChange={(e) => setNewActionInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && addAction()}
-                placeholder="15분 안에 즉시 할 수 있는 초소형 행동 입력..."
-                className="flex-1 bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                placeholder="15분 안에 즉시 할 작은 행동 입력..."
+                className="flex-1 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500"
               />
               <button
                 onClick={addAction}
-                className="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1 transition"
+                className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold flex items-center gap-1 transition cursor-pointer"
               >
-                <Plus size={14} /> 추가
+                <Plus size={13} /> 추가
               </button>
             </div>
 
-            <div className="max-h-56 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+            <div className="max-h-48 overflow-y-auto space-y-1.5 pr-1">
               {actions.map((act) => (
                 <div
                   key={act.id}
-                  className="flex items-center justify-between p-2.5 bg-slate-900/50 border border-slate-700/40 rounded-lg text-xs text-slate-300 group hover:border-slate-600 transition"
+                  className="flex items-center justify-between p-2 bg-white border border-slate-200/80 rounded-lg text-xs text-slate-700 hover:border-slate-300 transition"
                 >
                   <span className="truncate pr-2">{act.text}</span>
                   <button
                     onClick={() => removeAction(act.id)}
-                    className="text-slate-500 hover:text-rose-400 transition opacity-80 group-hover:opacity-100"
+                    className="text-slate-400 hover:text-rose-500 transition cursor-pointer"
                   >
                     <Trash2 size={13} />
                   </button>
@@ -291,6 +286,6 @@ export default function FocusActionSprint() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

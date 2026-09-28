@@ -585,20 +585,20 @@ ${tagList} #사지말고입양하세요 #유기견입양 #유기묘입양 #평�
     { id: 'bio', label: '4. 링크인바이오' },
     { id: 'story', label: '5. 스토리보드' },
     { id: 'music', label: '6. 음악 랩' },
-    { id: 'idea', label: '7. 아이디어 아카이브' },
-    { id: 'focus', label: '8. 초집중 스프린트 & 액션 다이스' },
+    { id: 'idea', label: '7. 아이디어' },
+    { id: 'focus', label: '8. 뽀모도로 다이스' },
   ] as const;
 
   return (
     <main className="min-h-screen bg-slate-100 text-slate-800 pb-20">
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
             <span className="font-extrabold text-slate-900 text-sm tracking-tight">SprintCraft</span>
             <span className="text-[10px] text-slate-400 font-medium hidden sm:inline">v1.0</span>
           </div>
-          <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto py-2">
+          <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-2 scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {navItems.map((item) => (
               <button
                 key={item.id}
